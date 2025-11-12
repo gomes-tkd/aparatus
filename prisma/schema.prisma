@@ -1,0 +1,51 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Barbershop {
+  id          String              @id @default(uuid())
+  name        String
+  address     String
+  description String
+  imageUrl    String
+  phones      String[]
+  services    BarbershopService[]
+  bookings    Booking[]
+}
+
+model BarbershopService {
+  id           String     @id @default(uuid())
+  name         String
+  description  String
+  imageUrl     String
+  barbershopId String
+  barbershop   Barbershop @relation(fields: [barbershopId], references: [id])
+  priceInCents Int
+  bookings     Booking[]
+}
+
+model Booking {
+  id             String            @id @default(uuid())
+  serviceId      String
+  service        BarbershopService @relation(fields: [serviceId], references: [id])
+  barbershopId   String
+  barbershop     Barbershop        @relation(fields: [barbershopId], references: [id])
+  userId         String
+  // user           User              @relation(fields: [userId], references: [id])
+  date           DateTime          @db.Timestamptz
+  cancelled      Boolean?          @default(false)
+  cancelledAt    DateTime?         @db.Timestamptz
+  stripeChargeId String?
+}
