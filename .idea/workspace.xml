@@ -6,11 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="39ea1093-fac8-4134-b48f-0349d8e0343e" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/barbershops/[id]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/barbershops/[id]/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/barbershops/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/barbershops/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/barbershop-item/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/barbershop-item/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/booking-item/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/booking-item/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/quick-search-button/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/quick-search-buttons/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/header/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/header/index.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -103,7 +99,7 @@
       <workItem from="1762988206320" duration="2971000" />
       <workItem from="1762996668450" duration="4853000" />
       <workItem from="1763001844161" duration="2203000" />
-      <workItem from="1763037095374" duration="10194000" />
+      <workItem from="1763037095374" duration="10340000" />
     </task>
     <servers />
   </component>
