@@ -5,6 +5,8 @@ import "./globals.css";
 import Header from "@/components/header";
 import { PageContainer } from "@/components/page-container";
 import Footer from "@/components/footer";
+import QueryProvider from "@/providers";
+import { Toaster } from "@/components/ui/sonner";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -33,7 +35,10 @@ export default function RootLayout({
       >
         <Header />
         <PageContainer>
-          {children}
+          <QueryProvider>
+            {children}
+            <Toaster />
+          </QueryProvider>
         </PageContainer>
         <Footer />
       </body>
