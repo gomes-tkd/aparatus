@@ -33,10 +33,11 @@ export default function SidebarMenu() {
           <div className={"flex items-center gap-3"}>
             <Avatar className={"size-12"}>
               <AvatarImage src={session.user.image! ?? ""} />
+
+              <AvatarFallback>
+                {session.user.name?.charAt(0).toUpperCase()}
+              </AvatarFallback>
             </Avatar>
-            <AvatarFallback>
-              {session.user.name?.charAt(0).toUpperCase()}
-            </AvatarFallback>
 
             <div className={"flex flex-col leading-tight"}>
               <p className={"text-base font-semibold"}>{session.user.name}</p>
