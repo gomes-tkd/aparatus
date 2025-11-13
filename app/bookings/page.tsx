@@ -6,10 +6,10 @@ import {
   PageContainer,
   PageSection,
   PageSectionTitle,
-} from "@/components/ui/page";
+} from "@/components/page-container";
 import BookingItem from "@/components/booking-item";
 
-export default function Bookings() {
+export default async function Bookings() {
   const session = await auth.api.getSession({
     headers: await headers()
   });
