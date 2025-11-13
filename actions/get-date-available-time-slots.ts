@@ -1,4 +1,4 @@
-"use serve";
+"use server";
 import { actionClient } from "@/lib/action-client";
 import { prisma } from "@/lib/prisma";
 import z from "zod";
