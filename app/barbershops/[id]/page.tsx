@@ -1,12 +1,12 @@
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, ChevronLeft, Copy, Phone } from "lucide-react";
+import { ChevronLeft } from "lucide-react";
 import { prisma } from "@/lib/prisma";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { toast } from "sonner";
+import ServiceItem from "@/components/service-item";
+import PhoneItem from "@/components/phone-item";
 
 export default async function BarbershopPage(props: PageProps<"/barbershops/[id]">) {
   const { id } = await props.params;
@@ -23,13 +23,6 @@ export default async function BarbershopPage(props: PageProps<"/barbershops/[id]
   if (!barbershop) {
     notFound();
   }
-
-  const handleCopyPhone = (phone: string) => {
-    if (typeof window !== "undefined") {
-      navigator.clipboard.writeText(phone);
-      toast.success("Telefone copiado para a área de transferência!");
-    }
-  };
 
   return (
     <div className="flex size-full flex-col items-start overflow-clip">
@@ -118,11 +111,10 @@ export default async function BarbershopPage(props: PageProps<"/barbershops/[id]
           </div>
           <div className="flex w-full flex-col gap-3">
             {barbershop.services.map((service) => (
-              // <ServiceItem
-              //   key={service.id}
-              //   service={{ ...service, barbershop }}
-              // />
-              <h1 key={service.id}>{service.name}</h1>
+              <ServiceItem
+                key={service.id}
+                service={{ ...service, barbershop }}
+              />
             ))}
           </div>
         </div>
@@ -141,8 +133,7 @@ export default async function BarbershopPage(props: PageProps<"/barbershops/[id]
           </div>
           <div className="flex w-full flex-col gap-3">
             {barbershop.phones.map((phone, index) => (
-              // <PhoneItem key={index} phone={phone} />
-              <h1 key={index}>{phone}</h1>
+              <PhoneItem key={index} phone={phone} />
             ))}
           </div>
         </div>

@@ -17,8 +17,6 @@ import { Button } from "@/components/ui/button";
 import { useAction } from "next-safe-action/hooks";
 import cancelBooking from "@/actions/cancel-booking";
 import { toast } from "sonner";
-import { X } from "lucide-react";
-import { Separator } from "@/components/ui/separator";
 import {
   AlertDialog,
   AlertDialogAction,
