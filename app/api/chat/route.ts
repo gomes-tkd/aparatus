@@ -5,7 +5,7 @@ import { prisma } from "@/lib/prisma";
 import getDateAvailableTimeSlots from "@/actions/get-date-available-time-slots";
 import createBooking from "@/actions/create-booking";
 
-export const POST = async (request: Request) => {
+export async function POST(request: Request){
   const { messages } = await request.json();
   const result = streamText({
     model: openai("gpt-4o-mini"),
@@ -180,4 +180,4 @@ export const POST = async (request: Request) => {
     },
   });
   return result.toUIMessageStreamResponse();
-};
+}
