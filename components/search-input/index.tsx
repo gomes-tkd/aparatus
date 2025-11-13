@@ -28,6 +28,7 @@ export default function SearchInput() {
         value={search}
         onChange={(e) => setSearch(e.target.value)}
       />
+
       <Button
         type={"submit"}
         variant={"default"}
