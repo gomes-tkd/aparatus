@@ -1,156 +1,145 @@
 "use client";
-
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { authClient } from "@/lib/auth-client";
+import {
+  CalendarDaysIcon,
+  HomeIcon,
+  LogInIcon,
+  LogOutIcon,
+} from "lucide-react";
+import Link from "next/link";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-} from "@/components/ui/sheet";
-import { Home, Calendar, LogOut, User } from "lucide-react";
-import { useRouter } from "next/navigation";
-import { signOut, useSession } from "next-auth/react";
+import { SheetClose } from "@/components/ui/sheet";
 
-interface SidebarMenuProps {
-  isOpen: boolean;
-  onOpenChange: (open: boolean) => void;
-}
+export default function SidebarMenu() {
+  const { data: session } = authClient.useSession();
 
-export function SidebarMenu({ isOpen, onOpenChange }: SidebarMenuProps) {
-  const { data: session } = useSession();
-  const router = useRouter();
-
-  const handleLogout = async () => {
-    await signOut();
-    onOpenChange(false);
-  };
-
-  const handleNavigateHome = () => {
-    router.push("/");
-    onOpenChange(false);
-  };
-
-  const handleNavigateBookings = () => {
-    router.push("/bookings");
-    onOpenChange(false);
-  };
-
-  // Interface quando usuário está deslogado
-  if (!session?.user) {
-    return (
-      <Sheet open={isOpen} onOpenChange={onOpenChange}>
-        <SheetContent side="left" className="w-[300px] p-0">
-          <SheetHeader className="border-b border-solid p-5 text-left">
-            <SheetTitle>Menu</SheetTitle>
-          </SheetHeader>
-
-          <div className="flex flex-col gap-2 p-5">
-            <div className="flex items-center gap-2 rounded-lg border border-solid p-3">
-              <User className="h-8 w-8 text-muted-foreground" />
-              <div className="flex flex-col">
-                <p className="text-sm font-semibold">Olá, faça seu login!</p>
-              </div>
-            </div>
-
-            <Button
-              variant="ghost"
-              className="justify-start gap-2"
-              onClick={handleNavigateHome}
-            >
-              <Home className="h-5 w-5" />
-              Início
-            </Button>
-          </div>
-        </SheetContent>
-      </Sheet>
-    );
+  async function handleLogin() {
+    await authClient.signIn.social({
+      provider: "google"
+    });
   }
 
-  // Interface quando usuário está logado
-  return (
-    <Sheet open={isOpen} onOpenChange={onOpenChange}>
-      <SheetContent side="left" className="w-[300px] p-0">
-        <SheetHeader className="border-b border-solid p-5 text-left">
-          <SheetTitle>Menu</SheetTitle>
-        </SheetHeader>
+  async function handleLogout() {
+    await authClient.signOut();
+  }
 
-        <div className="flex flex-col gap-2 p-5">
-          {/* User Info */}
-          <div className="flex items-center gap-3 rounded-lg border border-solid p-3">
-            <Avatar>
-              <AvatarImage src={session.user.image || ""} />
-              <AvatarFallback>
-                {session.user.name?.charAt(0).toUpperCase() || "U"}
-              </AvatarFallback>
+  return (
+    <div className={"flex h-full flex-col gap-6 py-6"}>
+      {/* section user */}
+      <div className={"px-5"}>
+        {session?.user ? (
+          <div className={"flex items-center gap-3"}>
+            <Avatar className={"size-12"}>
+              <AvatarImage src={session.user.image! ?? ""} />
             </Avatar>
-            <div className="flex flex-col">
-              <p className="text-sm font-semibold">{session.user.name}</p>
-              <p className="text-xs text-muted-foreground">
-                {session.user.email}
-              </p>
+            <AvatarFallback>
+              {session.user.name?.charAt(0).toUpperCase()}
+            </AvatarFallback>
+
+            <div className={"flex flex-col leading-tight"}>
+              <p className={"text-base font-semibold"}>{session.user.name}</p>
+              <p className={"text-muted-foreground text-sm"}>{session.user.email}</p>
             </div>
           </div>
+        ) : (
+          <div className={"flex items-center justify-between"}>
+            <div className={"flex h-12 items-center"}>
+              <p className={"text-base font-semibold"}>Bem-vindo! Faça seu login!</p>
+            </div>
 
-          <Separator className="my-2" />
-
-          {/* Navigation Buttons */}
-          <Button
-            variant="ghost"
-            className="justify-start gap-2"
-            onClick={handleNavigateHome}
-          >
-            <Home className="h-5 w-5" />
-            Início
-          </Button>
-
-          <Button
-            variant="ghost"
-            className="justify-start gap-2"
-            onClick={handleNavigateBookings}
-          >
-            <Calendar className="h-5 w-5" />
-            Agendamentos
-          </Button>
-
-          <Separator className="my-2" />
-
-          {/* Category Buttons (não fazem nada por enquanto) */}
-          <div className="space-y-1">
-            <p className="px-2 text-xs font-semibold uppercase text-muted-foreground">
-              Categorias
-            </p>
-            <Button variant="ghost" className="w-full justify-start" disabled>
-              Cabelo
-            </Button>
-            <Button variant="ghost" className="w-full justify-start" disabled>
-              Barba
-            </Button>
-            <Button variant="ghost" className="w-full justify-start" disabled>
-              Acabamento
-            </Button>
-            <Button variant="ghost" className="w-full justify-start" disabled>
-              Massagem
-            </Button>
-            <Button variant="ghost" className="w-full justify-start" disabled>
-              Sobrancelha
+            <Button onClick={handleLogin} className={"gap-3 rounded-full px-6 py-3"}>
+              <span className={"tet-sm font-semibold"}>Login</span>
+              <LogInIcon className={"size-4"} />
             </Button>
           </div>
+        )}
+      </div>
 
-          <Separator className="my-2" />
+      {/*  Navigation Buttons*/}
+      <div className="flex flex-col">
+        <SheetClose asChild>
+          <Link href={"/"}>
+            <Button variant={"ghost"} className={"h-auto w-full justify-start gap-3 rounded-full px-5 py-3"}>
+              <HomeIcon className={"size-5"} />
+              <span className={"text-sm font-medium"}>Início</span>
+            </Button>
+          </Link>
+        </SheetClose>
 
-          {/* Logout Button */}
-          <Button
-            variant="ghost"
-            className="justify-start gap-2 text-destructive hover:bg-destructive/10 hover:text-destructive"
-            onClick={handleLogout}
-          >
-            <LogOut className="h-5 w-5" />
-            Sair
-          </Button>
-        </div>
-      </SheetContent>
-    </Sheet>
+        <SheetClose asChild>
+          <Link href={"/bookings"}>
+            <Button variant={"ghost"} className={"h-auto w-full justify-start gap-3 rounded-full px-5 py-3"}>
+              <CalendarDaysIcon className={"size-4"} />
+              <span className="text-sm font-medium">
+                Agendamentos
+              </span>
+            </Button>
+          </Link>
+        </SheetClose>
+      </div>
+
+      <Separator />
+
+      {/*Category Buttons*/}
+      <div className={"flex flex-col gap-1"}>
+        <Link
+          href={"/barbershops?search=barba"}
+          className={"h-10 w-full cursor-default justify-start rounded-full px-5 py-3 hover:bg-transparent"}
+        >
+          <span className="text-sm font-medium">Barba</span>
+        </Link>
+
+        <Link
+          href={"/barbershops?search=cabelo"}
+          className={"h-10 w-full cursor-default justify-start rounded-full px-5 py-3 hover:bg-transparent"}
+        >
+          <span className="text-sm font-medium">Cabelo</span>
+        </Link>
+
+        <Link
+          href={"/barbershops?search=acabamento"}
+          className={"h-10 w-full cursor-default justify-start rounded-full px-5 py-3 hover:bg-transparent"}
+        >
+          <span className="text-sm font-medium">Acabamento</span>
+        </Link>
+
+        <Link
+          href={"/barbershops?search=sobrancelha"}
+          className={"h-10 w-full cursor-default justify-start rounded-full px-5 py-3 hover:bg-transparent"}
+        >
+          <span className="text-sm font-medium">Sobrancelha</span>
+        </Link>
+
+        <Link
+          href={"/barbershops?search=pézinho"}
+          className={"h-10 w-full cursor-default justify-start rounded-full px-5 py-3 hover:bg-transparent"}
+        >
+          <span className="text-sm font-medium">Pézinho</span>
+        </Link>
+
+        <Link
+          href={"/barbershops?search=progressiva"}
+          className={"h-10 w-full cursor-default justify-start rounded-full px-5 py-3 hover:bg-transparent"}
+        >
+          <span className="text-sm font-medium">Progressiva</span>
+        </Link>
+      </div>
+
+      <Separator />
+
+      {/* Logout Button */}
+      <SheetClose asChild>
+        <Button
+          onClick={handleLogout}
+          variant={"ghost"}
+          className={"w-full justify-start gap-3 rounded-full px-5 py-3"}
+        >
+          <LogOutIcon className={"size-4"} />
+          <span className={"text-muted-foreground text-sm font-medium"}>Sair</span>
+        </Button>
+      </SheetClose>
+    </div>
   );
 }
