@@ -1,6 +1,8 @@
 import React from "react";
 import Image from "next/image";
 import LogoAparatus from "@/public/logo.svg";
+import { Button } from "@/components/ui/button";
+import { MenuIcon } from "lucide-react";
 
 export default function Header() {
   return (
@@ -10,8 +12,10 @@ export default function Header() {
         alt={"Logo Aparatus"}
         width={100}
         height={26}
-        fill
       />
+      <Button variant={"outline"} size={"icon"}>
+        <MenuIcon />
+      </Button>
     </header>
   )
 }
