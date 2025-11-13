@@ -16,7 +16,7 @@ export function PageSection({ children }: { children: React.ReactNode }) {
   return <div className="space-y-3">{children}</div>;
 }
 
-export function PageSectionScroller  ({ children }: { children: React.ReactNode; }){
+export function PageSectionScroller  ({ children }: { children: React.ReactNode }){
   return (
     <div className="flex gap-4 overflow-x-auto [&::-webkit-scrollbar]:hidden">
       {children}

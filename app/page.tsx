@@ -2,10 +2,25 @@ import React from "react";
 import Image from "next/image";
 import SearchInput from "@/components/search-input";
 import BannerImage from "@/public/banner.png";
+import { PageSection, PageSectionScroller, PageSectionTitle } from "@/components/page-container";
+import BookingItem from "@/components/booking-item";
+import { prisma } from "@/lib/prisma";
+import BarbershopItem from "@/components/barbershop-item";
 
-export default function Home() {
+export default async function Home() {
+  const recommendedBarbershops = await prisma.barbershop.findMany({
+    orderBy: {
+      name: "asc"
+    }
+  });
+  const popularBarbershops = await prisma.barbershop.findMany({
+    orderBy: {
+      name: "desc"
+    }
+  });
+
   return (
-    <div>
+    <PageSection>
       <SearchInput />
       <Image
         src={BannerImage}
@@ -14,6 +29,28 @@ export default function Home() {
         className={"h-auto w-full"}
         priority={true}
       />
-    </div>
+      <PageSectionTitle>
+        Recommended Barbershops
+      </PageSectionTitle>
+      <PageSectionScroller>
+        {recommendedBarbershops.map((barbershop) => (
+          <BarbershopItem key={barbershop.id} barbershop={barbershop} />
+        ))}
+      </PageSectionScroller>
+      <PageSectionTitle>
+        Popular Barbershops
+      </PageSectionTitle>
+      <PageSectionScroller>
+        {popularBarbershops.map((barbershop) => (
+          <BarbershopItem key={barbershop.id} barbershop={barbershop} />
+        ))}
+      </PageSectionScroller>
+      <BookingItem
+        serviceName={"barba"}
+        barbershopName={"seu zezé"}
+        barbershopImageUrl={"https://utfs.io/f/c97a2dc9-cf62-468b-a851-bfd2bdde775f-16p.png"}
+        date={new Date()}
+      />
+    </PageSection>
   );
 }
