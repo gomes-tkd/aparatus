@@ -6,7 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="39ea1093-fac8-4134-b48f-0349d8e0343e" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/components/header/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/header/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/bookings/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/bookings/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/components/footer/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/components/footer/index.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,6 +24,9 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="ProjectErrors" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 1
@@ -99,7 +103,7 @@
       <workItem from="1762988206320" duration="2971000" />
       <workItem from="1762996668450" duration="4853000" />
       <workItem from="1763001844161" duration="2203000" />
-      <workItem from="1763037095374" duration="10340000" />
+      <workItem from="1763037095374" duration="10968000" />
     </task>
     <servers />
   </component>
