@@ -1,21 +1,29 @@
-import React from "react";
-import Image from "next/image";
-import LogoAparatus from "@/public/logo.svg";
-import { Button } from "@/components/ui/button";
-import { MenuIcon } from "lucide-react";
+"use client";
 
-export default function Header() {
+import { useState } from "react";
+import { SidebarMenu } from "@/components/sidebar-menu";
+import { Button } from "@/components/ui/button";
+import { Menu } from "lucide-react";
+
+export function Header() {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
   return (
-    <header className={"flex items-center justify-between px-5 py-6"}>
-      <Image
-        src={LogoAparatus}
-        alt={"Logo Aparatus"}
-        width={100}
-        height={26}
+    <>
+      <header>
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={() => setIsSidebarOpen(true)}
+        >
+          <Menu className="h-5 w-5" />
+        </Button>
+      </header>
+
+      <SidebarMenu 
+        isOpen={isSidebarOpen} 
+        onOpenChange={setIsSidebarOpen} 
       />
-      <Button variant={"outline"} size={"icon"}>
-        <MenuIcon />
-      </Button>
-    </header>
-  )
+    </>
+  );
 }
